@@ -1,0 +1,71 @@
+body {
+  background: url("/12/resources/default/img/tenor.gif") no-repeat;
+  background-size: cover;
+  text-align: center;
+}
+
+.header_wr {
+  background: rgb(141, 63, 42)
+}
+
+.welcome {
+  display: flex;
+}
+
+.welcome__text {
+  flex: 5;
+  margin-top: 12vh;
+  text-align: center;
+}
+
+
+.main_page_link_wr {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.main_page_link {
+  position: relative;
+  display: inline-block;
+  width: 50%;
+}
+
+.main_page_link img {
+  width: 400px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#clockdate-wrapper {
+  background-color: #333;
+  padding:25px;
+  max-width:350px;
+  width:100%;
+  text-align:center;
+  position: center;
+  border-radius:5px;
+    margin: auto;
+}
+
+#clock{
+  height: 20vh;
+  color: white;
+  font-size: 22vh;
+  font-family: sans-serif;
+  line-height: 20.4vh;
+  overflow: hidden;
+}
+#clock span {
+  color:white;
+  font-size:30px;
+  position:relative;
+  top:-27px;
+  left:-10px;
+}
+#date {
+  letter-spacing:10px;
+  font-size:14px;
+  font-family:arial,sans-serif;
+  color:#fff;
+}

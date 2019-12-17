@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>3 Лаба по ПИП</title>
+    <h:outputStylesheet library="default" name="styles/main.css"/>
+    <h:outputStylesheet library="default" name="styles/result.css"/>
+</h:head>
+
+<h:body>
+
+    <div class="header_wr">
+        <div class="container">
+            <div class="header">
+                <div class="header__student-info">
+                    Керенский Никита P3201, вариант 20147
+                </div>
+
+                <div class="header__to_start_link">
+                    <h:form>
+                        <h:commandLink value="На стартовую" action="index?faces-redirect=true"/>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="content">
+        <div class="container">
+            <div class="graph-view-wr">
+                <p:panel styleClass="panel">
+                    <div id="canvas-wrapper">
+                        <c:forEach var="result" items="#{results.getResults()}">
+                            <div data-x="#{result.x}" data-y="#{result.y}" data-hit="#{result.hit}"></div>
+                        </c:forEach>
+                    </div>
+                </p:panel>
+
+                <div class="panel">
+                    <div class="panel__title">Предыдущие 100 результатов</div>
+                    <div class="panel__content">
+                        <table class="results">
+                            <tr>
+                                <th>X</th>
+                                <th>Y</th>
+                                <th>R</th>
+                                <th>Попадание</th>
+                                <th>Время</th>
+                            </tr>
+                            <c:forEach var="result" items="#{results.getResults()}">
+                                <tr>
+                                    <td>#{result.x}</td>
+                                    <td>#{result.y}</td>
+                                    <td>#{result.r}</td>
+                                    <td>#{result.hit ? "Да" : "Нет"}</td>
+                                    <td>#{result.timeFriendly(result.timestamp)}</td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <h:form id="form">
+                    <p:panel styleClass="panel flex-column-inner">
+                        <label class="panel__title">Координата X</label>
+                        <div class="knob-container ui-corner-all" style="text-align: center; margin-top: 15%;">
+                            <p:knob height="90" width="90" max="1" step="1" min="-5" name="x" value="#{form.x}"
+                                    foregroundColor="#505050" backgroundColor="#a9a9a9" required="true" onchange="onXChanged(this.value)"
+                                    requiredMessage="Неверное значение X." cursor="true" id="x-hidden" >
+                            </p:knob>
+                        </div>
+                    </p:panel>
+
+                    <p:panel styleClass="panel">
+                        <label class="panel__title">Координата Y</label>
+                        <p:inputText
+                                placeholder="(-3; 5)"
+                                value="#{form.y}"
+                                id="y"
+                                onchange="onYChanged(this.value)"
+                                required="true"/>
+                    </p:panel>
+
+                    <p:panel styleClass="panel">
+                        <label class="panel__title">R</label>
+                        <p:selectOneRadio id="r" value="#{form.r}" required="true" onchange="onRChanged(this.value)" styleClass="margin-auto">
+                            <f:selectItem itemValue="1" itemLabel="1"/>
+                            <f:selectItem itemValue="1.5" itemLabel="1.5"/>
+                            <f:selectItem itemValue="2" itemLabel="2"/>
+                            <f:selectItem itemValue="2.5" itemLabel="2.5"/>
+                            <f:selectItem itemValue="3" itemLabel="3"/>
+                        </p:selectOneRadio>
+                    </p:panel>
+
+                    <div class="panel hidden err-msg" id="err-msg"></div>
+
+                    <h:commandButton    styleClass="submit-btn"
+                                        value="Проверка"
+                                        id="submit-btn"
+                                        onclick="return onSubmit();"
+                                        action="#{form.process}"/>
+                </h:form>
+                <div class="ahegao" id="ahegao"></div>
+            </div>
+        </div>
+    </div>
+
+    <h:outputScript library="default" name="scripts/graphpicker.js" />
+    <h:outputScript library="default" name="scripts/main.js" />
+
+</h:body>
+
+</html>
