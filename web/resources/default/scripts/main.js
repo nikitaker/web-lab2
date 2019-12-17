@@ -6,8 +6,7 @@
   let canvasWrapper = document.getElementById("canvas-wrapper");
 
   let yInput = document.getElementById("form:y");
-  let xHidden = document.getElementById("form:x-hidden");
-  let xHidden2 = document.getElementById("form:x-hidden_hidden");
+  let xHidden = document.getElementById("form:x_hidden");
   let submitButton = document.getElementById("form:submit-btn");
   let ahegao = document.getElementById("ahegao");
 
@@ -24,13 +23,13 @@
   playAhegao();
 
   function playAhegao() {
-    ahegao.style.left = Math.random()*100 + 'px';
-    ahegao.style.bottom = Math.random()*100 + 'px';
+    ahegao.style.left = Math.random()*1000 + 'px';
+    ahegao.style.up = Math.random()*500 + 'px';
     ahegao.classList.toggle('active');
     setTimeout(() => {
       ahegao.classList.toggle('active');
     }, 1000);
-    setTimeout(playAhegao,5000)
+    setTimeout(playAhegao,1500)
   }
 
   function setErrorMsg(msg) {
@@ -51,8 +50,7 @@
     if (x == null || y == null)
       return setErrorMsg("Выберите R, чтобы выбрать точку на графике");
 
-    xHidden.value = x;
-    xHidden2.value = x;
+    xHidden.value = Math.round(x);
     yInput.value = y;
     submitButton.click();
   }
@@ -72,7 +70,6 @@
     if (!isNaN(value)) {
       graphPicker.setX(value);
       xHidden.value = value;
-      xHidden2.value = value;
     } else {
       graphPicker.setX(null);
       xHidden.value = "";

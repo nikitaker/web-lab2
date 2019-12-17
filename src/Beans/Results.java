@@ -36,7 +36,7 @@ public class Results {
         try {
             connection = dataSource.getConnection();
             connection.createStatement().execute(
-                    "create table if not exists results2 (" +
+                    "create table if not exists results5 (" +
                             "x numeric(5, 3), y numeric(5, 3), r numeric(5, 3), hit boolean, timestamp timestamp)"
             );
         } catch (SQLException e) {
@@ -48,7 +48,7 @@ public class Results {
         if (connection == null)
             initConnection();
         PreparedStatement s = connection.prepareStatement(
-                "insert into results2 (x, y, r, hit, timestamp) values (?, ?, ?, ?, ?)"
+                "insert into results5 (x, y, r, hit, timestamp) values (?, ?, ?, ?, ?)"
         );
         s.setDouble(1, result.getX());
         s.setDouble(2, result.getY());
@@ -61,7 +61,7 @@ public class Results {
     public List<Result> getResults() throws SQLException {
         if (connection == null)
             initConnection();
-        ResultSet rs = connection.createStatement().executeQuery("select * from results2 order by timestamp desc limit 100");
+        ResultSet rs = connection.createStatement().executeQuery("select * from results5 order by timestamp desc limit 100");
         List<Result> result = new ArrayList<>();
         while (rs.next()) {
             Result current = new Result();
